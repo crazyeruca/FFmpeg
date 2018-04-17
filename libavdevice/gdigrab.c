@@ -458,8 +458,11 @@ static void paint_mouse_pointer(AVFormatContext *s1, struct gdigrab *gdigrab)
         info.hbmMask = NULL;
         info.hbmColor = NULL;
 
-        if (ci.flags != CURSOR_SHOWING)
+        if (ci.flags != CURSOR_SHOWING) {
+            if (icon)
+                DestroyCursor(icon);
             return;
+        }
 
         if (!icon) {
             /* Use the standard arrow cursor as a fallback.
